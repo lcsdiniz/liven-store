@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { getProducts } from "../../services/products";
 import { Product } from "../../types/product";
 import { ProductCard } from "../../components/ProductCard";
 import SearchInput from "../../components/SearchInput";
-import { Container, Header } from "./styles";
+import { Header } from "./styles";
 import CartButton from "../../components/CartButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import RootStackParamList from "../../types/rootStackParamList";
@@ -28,10 +28,6 @@ export function Home({ navigation }: Props) {
         navigation.navigate('Cart')
     }
 
-    function navigateToProductDetails() {
-        navigation.navigate('Cart')
-    }
-
     function filterProducts(products: Product[]) {
 		if(search !== '') {
 			return products.filter(product => 
@@ -43,7 +39,7 @@ export function Home({ navigation }: Props) {
 	}
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <Header>
                 <SearchInput value={search} onChangeText={setSearch} />
 
@@ -55,18 +51,21 @@ export function Home({ navigation }: Props) {
                     <Text>No products</Text>
                 </View>
             ) : (
-                <ScrollView>
-                    <Container>
-                        {filterProducts(productsList).map(product => (
-                            <ProductCard
-                                id={product.id}
-                                title={product.title}
-                                image={product.image}
-                                price={product.price}
-                            />
-                    ))}
-                    </Container>
-                </ScrollView>
+                <FlatList
+                    data={filterProducts(productsList)}
+                    numColumns={2}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <ProductCard
+                            id={item.id}
+                            title={item.title}
+                            image={item.image}
+                            price={item.price}
+                        />
+                    )}
+                    columnWrapperStyle={{ gap: 8, justifyContent: 'space-evenly' }}
+                    contentContainerStyle={{ gap: 16, padding: 8 }}
+                />
             )}
         </View>
     )

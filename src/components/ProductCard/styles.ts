@@ -1,9 +1,8 @@
 import styled from "styled-components/native"
 
 export const Container = styled.TouchableOpacity`
-    width: 40%;
+    width: 45%;
     align-items: center;
-    border-radius: ${props => props.theme.borderRadius};
     box-shadow: 0px 1px 2.22px rgba(0, 0, 0, 0.22);
     background-color: ${props => props.theme.colors.white};
 `
