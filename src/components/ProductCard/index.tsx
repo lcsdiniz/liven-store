@@ -4,7 +4,7 @@ import { Container, Picture, Price, TextContainer, Title } from "./styles";
 
 type ProductCardProps = Pick<Product, "id" | "title" | "image" | "price">
 
-export function ProductCard({ id, title, image, price }: ProductCardProps) {
+export default function ProductCard({ id, title, image, price }: ProductCardProps) {
     const navigation = useNavigation();
     
     return (

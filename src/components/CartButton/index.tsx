@@ -11,18 +11,15 @@ export default function CartButton({ navigate }: CartButtonProps) {
     const [cartQuantity, setCartQuantity] = useState("0")
     const { getCart } = useCart()
 
-    async function checksCartQuantity() {
-        const cart = await getCart()
-        const itemsQuantity = cart.reduce((acc, item) => {
-            return acc + item.quantity;
-        }, 0);
-
-        setCartQuantity(() => itemsQuantity <= 9 ? String(itemsQuantity) : '9+')
-    }
-
     useEffect(() => {
-        checksCartQuantity()
-    }, [getCart])
+        async function fetchCartQuantity() {
+          const cart = await getCart();
+          const itemsQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+          setCartQuantity(itemsQuantity <= 9 ? String(itemsQuantity) : '9+');
+        }
+    
+        fetchCartQuantity();
+      }, [getCart]);
 
     return (
         <Container onPress={navigate}>
