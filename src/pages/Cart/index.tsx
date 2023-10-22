@@ -1,42 +1,28 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { View, Button, Alert } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { CartItem } from "../../components";
 import { useCart } from "../../hooks/useCart";
-import { Cart as CartType } from "../../contexts/CartContext"
 import { formatsCurrency } from "../../utils/format";
 
 import { Container, EmptyCart, Message, Total, TotalContainer, TotalValue } from "./styles";
 
 export function Cart() {
-    const [cart, setCart] = useState<CartType>([])
-
     const navigation = useNavigation();
-    const { getCart, updateQuantity, deleteCart, deleteItem } = useCart()
+    const { cart, updateQuantity, deleteCart, deleteItem } = useCart()
     
-    async function fetchCart() {
-       setCart(await getCart())
-    }
-
     async function eraseCart() {
         await deleteCart()
-        setCart([])
     }
 
     async function changeQuantity(id: number, quantity: string) {
-        const updatedCart = await updateQuantity(id, Number(quantity))
-        setCart(updatedCart!)
+        await updateQuantity(id, Number(quantity))
     }
 
     async function removeProduct(id: number) {
-        const updatedCart = await deleteItem(id)
-        setCart(updatedCart!)
+        await deleteItem(id)
     }
-
-    useEffect(() => {
-        fetchCart()
-    }, [])
 
     const totalPrice = useMemo(() => {
         return cart.reduce((acc, item) => {

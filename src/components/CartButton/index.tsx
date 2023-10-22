@@ -9,17 +9,16 @@ interface CartButtonProps {
 
 export default function CartButton({ navigate }: CartButtonProps) {
     const [cartQuantity, setCartQuantity] = useState("0")
-    const { getCart } = useCart()
+    const { cart } = useCart()
 
     useEffect(() => {
         async function fetchCartQuantity() {
-          const cart = await getCart();
           const itemsQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
           setCartQuantity(itemsQuantity <= 9 ? String(itemsQuantity) : '9+');
         }
     
         fetchCartQuantity();
-      }, [getCart]);
+      }, [cart]);
 
     return (
         <Container onPress={navigate}>
