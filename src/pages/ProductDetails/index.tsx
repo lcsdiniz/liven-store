@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text, Alert } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import RootStackParamList from "../../types/rootStackParamList";
 import { useEffect, useState } from "react";
@@ -20,6 +20,12 @@ export function ProductDetails({ route, navigation }: Props) {
     async function fetchProductById() {
         const product = await getProductById(productId)
         setProduct(product)
+    }
+
+    async function addToCart() {
+        await updateCart(product!)
+
+        Alert.alert('Product added to cart');
     }
 
     useEffect(() => {
@@ -60,7 +66,7 @@ export function ProductDetails({ route, navigation }: Props) {
                                 </RateContainer>
                             </InfoContainer>
 
-                            <AddToCart onPress={() => updateCart(product)}>
+                            <AddToCart onPress={addToCart}>
                                 <ButtonText>ADD TO CART</ButtonText>
                             </AddToCart>
                         </View>
