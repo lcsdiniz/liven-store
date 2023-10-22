@@ -2,19 +2,24 @@ import styled from "styled-components/native"
 
 export const Container = styled.View`
     flex-direction: row;
-    gap: 24px;
-    padding: ${props => props.theme.padding.md};
     background-color: ${props => props.theme.colors.white};
 `
 
+export const Content = styled.View`
+    flex: 1;
+    gap: 16px;
+    flex-direction: row;
+    padding: ${props => props.theme.padding.md};
+`
+
 export const Picture = styled.Image`
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
 `
 
 export const Info = styled.View`
+    gap: 8px;
     flex: 1;
-    gap: 4px;
 `
 
 export const Title = styled.Text`
@@ -30,11 +35,9 @@ export const QuantityContainer = styled.View`
     align-items: center;
 `
 
-export const Quantity = styled.TextInput`
-    padding: ${props => props.theme.padding.sm};
+export const Quantity = styled.Text`
     text-align: center;
-    border: 1px solid ${props => props.theme.colors.gray};
-    width: 48px;
+    width: 36px;
 `
 
 export const QuantityButton = styled.TouchableOpacity`
@@ -42,5 +45,12 @@ export const QuantityButton = styled.TouchableOpacity`
     align-items: center;
     border: 1px solid ${props => props.theme.colors.gray};
     padding: ${props => props.theme.padding.sm};
+    opacity: ${(props) => (props.disabled ? 0.3 : 1)};
+`
+
+export const DeleteButton = styled.TouchableOpacity`
+    justify-content: center;
+    align-items: center;
+    padding: ${props => props.theme.padding.lg};
 `
 

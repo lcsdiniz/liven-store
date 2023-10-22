@@ -12,6 +12,8 @@ export interface CartContextType {
   getCart: () => Promise<Cart>;
   updateCart: (product: Product) => Promise<void>;
   deleteCart: () => Promise<void>;
+  deleteItem: (productId: number) => Promise<CartProduct[] | undefined>;
+  updateQuantity: (productId: number, newQuantity: number) => Promise<CartProduct[] | undefined>;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -54,12 +56,40 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 	}
   };
 
+  async function updateQuantity(productId: number, newQuantity: number) {
+	const cart = await AsyncStorage.getItem('@liven-cart')
+
+	if(cart) {
+		const parsedCart: Cart = JSON.parse(cart)
+
+		const productIndex = parsedCart.findIndex(arrProduct => arrProduct.id == productId)
+		parsedCart[productIndex].quantity = parsedCart[productIndex].quantity + newQuantity
+
+		await AsyncStorage.setItem('@liven-cart', JSON.stringify(parsedCart))
+
+		return parsedCart
+	}
+  };
+
+  async function deleteItem(productId: number) {
+	const cart = await AsyncStorage.getItem('@liven-cart')
+
+	if(cart) {
+		const parsedCart: Cart = JSON.parse(cart)
+		const filteredCart = parsedCart.filter(product => product.id !== productId)
+
+		await AsyncStorage.setItem('@liven-cart', JSON.stringify(filteredCart))
+		
+		return filteredCart
+	}
+  };
+
   async function deleteCart() {
     await AsyncStorage.removeItem('@liven-cart');
   };
 
   return (
-    <CartContext.Provider value={{ getCart, updateCart, deleteCart }}>
+    <CartContext.Provider value={{ getCart, updateCart, deleteCart, deleteItem, updateQuantity }}>
       {children}
     </CartContext.Provider>
   );

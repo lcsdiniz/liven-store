@@ -9,8 +9,8 @@ export const Container = styled.TouchableOpacity`
 `
 
 export const Picture = styled.Image`
-    width: 100;
-    height: 100;
+    width: 100px;
+    height: 100px;
 `
 
 export const TextContainer = styled.View`
