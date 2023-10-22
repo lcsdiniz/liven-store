@@ -1,13 +1,18 @@
-import { View, Text, Button } from "react-native";
-import { useCart } from "../../hooks/useCart";
 import { useEffect, useMemo, useState } from "react";
+import { View, Button, Alert } from "react-native";
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { CartItem } from "../../components";
+import { useCart } from "../../hooks/useCart";
 import { Cart as CartType } from "../../contexts/CartContext"
-import CartItem from "../../components/CartItem";
-import { Container } from "./styles";
+import { formatsCurrency } from "../../utils/format";
+
+import { Container, EmptyCart, Message, Total, TotalContainer, TotalValue } from "./styles";
 
 export function Cart() {
     const [cart, setCart] = useState<CartType>([])
 
+    const navigation = useNavigation();
     const { getCart, updateQuantity, deleteCart, deleteItem } = useCart()
     
     async function fetchCart() {
@@ -21,11 +26,10 @@ export function Cart() {
 
     async function changeQuantity(id: number, quantity: string) {
         const updatedCart = await updateQuantity(id, Number(quantity))
-        console.log(updatedCart)
         setCart(updatedCart!)
     }
 
-    async function removeCartItem(id: number) {
+    async function removeProduct(id: number) {
         const updatedCart = await deleteItem(id)
         setCart(updatedCart!)
     }
@@ -41,29 +45,59 @@ export function Cart() {
         }, 0);
     }, [cart]);
 
+    async function eraseCartAlert() {
+        Alert.alert('Clean Cart', 'Remove all products from your cart?', [
+            {
+                text: 'No',
+                style: 'cancel',
+            },
+            {text: 'OK', onPress: eraseCart},
+        ]);
+    }
+
+    async function removeProductAlert(id: number) {
+        Alert.alert('Remove Product', 'Remove this product from your cart?', [
+            {
+                text: 'No',
+                style: 'cancel',
+            },
+            {text: 'OK', onPress: () => removeProduct(id)},
+        ]);
+    }
+
     return (
         <Container>
             {cart.length !== 0 ? (
-                cart.map(product => (
-                    <View id={String(product.id)}>
-                        <CartItem
-                            id={product.id}
-                            title={product.title}
-                            quantity={product.quantity}
-                            image={product.image}
-                            price={product.price}
-                            changeQuantity={changeQuantity}
-                            removeCartItem={removeCartItem}
-                        />
-                    </View>
-                ))
+                <>
+                    {cart.map(product => (
+                        <View key={product.id.toString()}>
+                            <CartItem
+                                id={product.id}
+                                title={product.title}
+                                quantity={product.quantity}
+                                image={product.image}
+                                price={product.price}
+                                changeQuantity={changeQuantity}
+                                removeCartItem={removeProductAlert}
+                            />
+                        </View>
+
+                    ))}
+
+                    <TotalContainer>
+                        <Total>TOTAL: </Total>
+                        <TotalValue>{formatsCurrency(totalPrice)}</TotalValue>
+                    </TotalContainer>
+
+                    <Button onPress={eraseCartAlert} title="CLEAN CART" color="#ff4268" />
+                </>
             ) : (
-                <View>
-                    <Text>EMPTY</Text>
-                </View>
+                <EmptyCart>
+                    <Message>Your cart is empty</Message>
+                    <FontAwesome name="shopping-cart" size={72} color="black" />
+                    <Button onPress={() => navigation.navigate("Home")} title="Back to Home" />
+                </EmptyCart>
             )}
-            <Text>TOTAL: {totalPrice}</Text>
-            <Button onPress={eraseCart} title="DELETE ALL"></Button>
         </Container>
     )
 }

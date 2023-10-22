@@ -9,6 +9,7 @@ import { useCart } from "../../hooks/useCart";
 import { AddToCart, BackButton, ButtonText, Container, Description, Divider, Header, InfoContainer, InfoTitle, Picture, PictureContainer, Price, Rate, RateContainer, Title } from "./styles";
 import { CartButton, Loading } from "../../components";
 import { FontAwesome5 } from '@expo/vector-icons'; 
+import { formatsCurrency } from "../../utils/format";
 type Props = NativeStackScreenProps<RootStackParamList, 'ProductDetails'>;
 
 export function ProductDetails({ route, navigation }: Props) {
@@ -24,7 +25,6 @@ export function ProductDetails({ route, navigation }: Props) {
 
     async function addToCart() {
         await updateCart(product!)
-
         Alert.alert('Product added to cart');
     }
 
@@ -37,14 +37,15 @@ export function ProductDetails({ route, navigation }: Props) {
     }
 
     return (
-            <View style={{ flex: 1 }}>
-                <Header>
-                    <BackButton onPress={() => navigation.goBack()}>
-                        <FontAwesome5 name="arrow-left" size={24} color="black" />
-                    </BackButton>
+        <View style={{ flex: 1 }}>
+            <Header>
+                <BackButton onPress={() => navigation.goBack()}>
+                    <FontAwesome5 name="arrow-left" size={24} color="black" />
+                </BackButton>
 
-                    <CartButton navigate={navigateToCart}/>
-                </Header>
+                <CartButton navigate={navigateToCart}/>
+            </Header>
+            
             {product ? (
                 <ScrollView>
                     <Container>
@@ -59,7 +60,7 @@ export function ProductDetails({ route, navigation }: Props) {
                         <View>
                             <InfoContainer>
                                 <Title>{product.title}</Title>
-                                <Price>${product.price}</Price>
+                                <Price>{formatsCurrency(product.price)}</Price>
                                 <RateContainer>
                                     <FontAwesome name="star" size={16} color="gold" />
                                     <Rate>{`${product.rating.rate} (${product.rating.count})`}</Rate>
@@ -91,6 +92,6 @@ export function ProductDetails({ route, navigation }: Props) {
             ) : (
                 <Loading />
             )}
-            </View>
+        </View>
     )
 }

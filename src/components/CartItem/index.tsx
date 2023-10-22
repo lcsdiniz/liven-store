@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Container, Content, DeleteButton, Info, Picture, Price, Quantity, QuantityButton, QuantityContainer, Title } from './styles';
 import { CartProduct } from '../../contexts/CartContext';
-import { useEffect, useState } from 'react';
+import { formatsCurrency } from '../../utils/format';
 
 type CartItemProps = Pick<CartProduct, "id" | "title" | "quantity" | "image" | "price"> & {
     changeQuantity: (id: number, quantity: string) => Promise<void>
@@ -9,14 +9,8 @@ type CartItemProps = Pick<CartProduct, "id" | "title" | "quantity" | "image" | "
 };
 
 export default function CartItem({ id, title, quantity, image, price, changeQuantity, removeCartItem }: CartItemProps) {
-    const [value, setValue] = useState(String(quantity))
-    
-    useEffect(() => {
-        changeQuantity(id, value)
-    }, [value])
-
     return (
-        <Container id={String(id)}>
+        <Container>
             <Content>
                 <Picture
                     source={{
@@ -26,7 +20,7 @@ export default function CartItem({ id, title, quantity, image, price, changeQuan
     
                 <Info>
                     <Title numberOfLines={1}>{title}</Title>
-                    <Price>${price}</Price>
+                    <Price>{formatsCurrency(price)}</Price>
 
                     <QuantityContainer>
                         <QuantityButton onPress={() => changeQuantity(id, "-1")} disabled={quantity === 1}>
