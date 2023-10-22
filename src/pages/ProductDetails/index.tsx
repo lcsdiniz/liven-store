@@ -1,17 +1,17 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import RootStackParamList from "../../types/rootStackParamList";
 import { useEffect, useState } from "react";
 import { getProductById } from "../../services/products";
 import { Product } from "../../types/product";
 import { useCart } from "../../hooks/useCart";
-import { AddToCart, ButtonContainer, ButtonText, Container, Description, Divider, InfoContainer, InfoTitle, Picture, PictureContainer, Price, Rate, RateContainer, Title } from "./styles";
-import { Loading } from "../../components";
-
+import { AddToCart, BackButton, ButtonText, Container, Description, Divider, Header, InfoContainer, InfoTitle, Picture, PictureContainer, Price, Rate, RateContainer, Title } from "./styles";
+import { CartButton, Loading } from "../../components";
+import { FontAwesome5 } from '@expo/vector-icons'; 
 type Props = NativeStackScreenProps<RootStackParamList, 'ProductDetails'>;
 
-export function ProductDetails({ route }: Props) {
+export function ProductDetails({ route, navigation }: Props) {
     const [product, setProduct] = useState<Product | null>(null)
 
     const { productId } = route.params;
@@ -26,10 +26,21 @@ export function ProductDetails({ route }: Props) {
         fetchProductById()
     }, [])
 
+    function navigateToCart() {
+        navigation.navigate('Cart')
+    }
+
     return (
-        <>
+            <View style={{ flex: 1 }}>
+                <Header>
+                    <BackButton onPress={() => navigation.goBack()}>
+                        <FontAwesome5 name="arrow-left" size={24} color="black" />
+                    </BackButton>
+
+                    <CartButton navigate={navigateToCart}/>
+                </Header>
             {product ? (
-                <ScrollView style={{ flex: 1, marginTop: '6%' }}>
+                <ScrollView>
                     <Container>
                         <PictureContainer>
                             <Picture
@@ -74,6 +85,6 @@ export function ProductDetails({ route }: Props) {
             ) : (
                 <Loading />
             )}
-        </>
+            </View>
     )
 }

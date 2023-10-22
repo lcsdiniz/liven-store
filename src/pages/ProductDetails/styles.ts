@@ -1,5 +1,17 @@
 import styled from "styled-components/native"
 
+export const Header = styled.View`
+    gap: 12px;
+    padding: 9% ${props => props.theme.padding.md} ${props => props.theme.padding.md};
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: ${props => props.theme.colors.white};
+`
+
+export const BackButton = styled.TouchableOpacity`
+`
+
 export const Container = styled.View`
     gap: 16px;
     margin-bottom: ${props => props.theme.margin.md};
