@@ -2,7 +2,7 @@ import React, { createContext, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Product } from '../types/product';
 
-type CartProduct = Product & {
+export type CartProduct = Product & {
 	quantity: number
 }
 
@@ -40,8 +40,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 		const alreadyInCart = parsedCart.find(arrProduct => arrProduct.id == product.id)
 
 		if(alreadyInCart) {
-			const productIndex = parsedCart.findIndex(product => product.id)
-			console.log('productIndex', productIndex)
+			const productIndex = parsedCart.findIndex(arrProduct => arrProduct.id == product.id)
 			parsedCart[productIndex].quantity = parsedCart[productIndex].quantity + 1
 		} else {
 			parsedCart.push({ ...product, quantity: 1 })

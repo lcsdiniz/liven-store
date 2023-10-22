@@ -39,6 +39,18 @@ export const RateContainer = styled.View`
     gap: 2px;
 `
 
+export const AddToCart = styled.TouchableOpacity`
+    background-color: ${props => props.theme.colors.primary};
+    padding: ${props => props.theme.padding.md};
+`
+
+
+export const ButtonText = styled.Text`
+    font-size: ${props => props.theme.fontSizes.xl};
+    text-align: center;
+    color: ${props => props.theme.colors.white};
+`
+
 export const Rate = styled.Text`
 `
 

@@ -2,6 +2,7 @@ import { View, Text, Button } from "react-native";
 import { useCart } from "../../hooks/useCart";
 import { useEffect, useState } from "react";
 import { Cart as CartType } from "../../contexts/CartContext"
+import CartItem from "../../components/CartItem";
 
 export function Cart() {
     const [cart, setCart] = useState<CartType>([])
@@ -25,11 +26,13 @@ export function Cart() {
         <View>
             {cart.length !== 0 ? (
                 cart.map(product => (
-                    <View>
-                        <Text>{product.id}</Text>
-                        <Text>{product.title}</Text>
-                        <Text>{product.quantity}</Text>
-                    </View>
+                    <CartItem
+                        id={product.id}
+                        title={product.title}
+                        quantity={product.quantity}
+                        image={product.image}
+                        price={product.price}
+                    />
                 ))
             ) : (
                 <View>
