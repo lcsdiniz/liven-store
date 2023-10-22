@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { View, Text, ScrollView } from "react-native";
 import { getProducts } from "../../services/products";
 import { Product } from "../../types/product";
 import { ProductCard } from "../../components/ProductCard";
 import SearchInput from "../../components/SearchInput";
 import { Container, Header } from "./styles";
 import CartButton from "../../components/CartButton";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import RootStackParamList from "../../types/rootStackParamList";
 
-export function Home() {
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export function Home({ navigation }: Props) {
     const [productsList, setProductsList] = useState<Product[]>([])
     const [search, setSearch] = useState("")
     
@@ -20,6 +23,14 @@ export function Home() {
     useEffect(() => {
         fetchProducts()
     } , [])
+
+    function navigateToCart() {
+        navigation.navigate('Cart')
+    }
+
+    function navigateToProductDetails() {
+        navigation.navigate('Cart')
+    }
 
     function filterProducts(products: Product[]) {
 		if(search !== '') {
@@ -36,7 +47,7 @@ export function Home() {
             <Header>
                 <SearchInput value={search} onChangeText={setSearch} />
 
-                <CartButton />
+                <CartButton navigate={navigateToCart}/>
             </Header>
             
             {productsList.length === 0 ? (
@@ -46,7 +57,7 @@ export function Home() {
             ) : (
                 <ScrollView>
                     <Container>
-                        {productsList.map(product => (
+                        {filterProducts(productsList).map(product => (
                             <ProductCard
                                 id={product.id}
                                 title={product.title}

@@ -1,9 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Container, QuantityContainer, QuantityText, } from './styles';
 
-export default function CartButton() {
+interface CartButtonProps {
+    navigate: () => void
+}
+
+export default function CartButton({ navigate }: CartButtonProps) {
     return (
-        <Container>
+        <Container onPress={navigate}>
             <QuantityContainer>
                 <QuantityText>9+</QuantityText>
             </QuantityContainer>
