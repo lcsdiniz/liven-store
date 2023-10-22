@@ -6,12 +6,12 @@ type CartProduct = Product & {
 	quantity: number
 }
 
-type Cart = CartProduct[]
+export type Cart = CartProduct[]
 
 export interface CartContextType {
-  getCart: (email: string, password: string) => Promise<Cart>;
+  getCart: () => Promise<Cart>;
   updateCart: (product: Product) => Promise<void>;
-  deleteCart: (email: string, password: string) => Promise<void>;
+  deleteCart: () => Promise<void>;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -37,10 +37,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
 	if(cart) {
 		const parsedCart: Cart = JSON.parse(cart)
-		const alreadyInCart = parsedCart.find(product => product.id)
+		const alreadyInCart = parsedCart.find(arrProduct => arrProduct.id == product.id)
 
 		if(alreadyInCart) {
 			const productIndex = parsedCart.findIndex(product => product.id)
+			console.log('productIndex', productIndex)
 			parsedCart[productIndex].quantity = parsedCart[productIndex].quantity + 1
 		} else {
 			parsedCart.push({ ...product, quantity: 1 })

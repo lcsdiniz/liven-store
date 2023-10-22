@@ -6,3 +6,9 @@ export async function getProducts(): Promise<Product[]> {
 
 	return response.data
 }
+
+export async function getProductById(id: number): Promise<Product> {
+	const response = await api.get(`products/${id}`)
+
+	return response.data
+}
