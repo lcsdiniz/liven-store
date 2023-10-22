@@ -15,7 +15,7 @@ export const Picture = styled.Image`
 export const TextContainer = styled.View`
     align-items: center;
     gap: 4px;
-    padding: ${props => props.theme.padding.sm} ${props => props.theme.padding.sm} ${props => props.theme.padding.md};
+    padding: ${props => props.theme.padding.sm} ${props => props.theme.padding.sm} ${props => props.theme.padding.xs};
 `
 
 export const Title = styled.Text`
