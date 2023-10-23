@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { View, FlatList } from "react-native";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
 import { getProducts } from "../../services/products";
 import { Product } from "../../types/product";
 import { Header, Message, NoProductsContainer } from "./styles";

@@ -1,15 +1,16 @@
 import { useMemo } from "react";
 import { View, Button, Alert } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { CartItem } from "../../components";
 import { useCart } from "../../hooks/useCart";
 import { formatsCurrency } from "../../utils/format";
-
+import RootStackParamList from "../../types/rootStackParamList";
 import { Container, EmptyCart, Message, Total, TotalContainer, TotalValue } from "./styles";
 
-export function Cart() {
-    const navigation = useNavigation();
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export function Cart({ navigation }: Props) {
     const { cart, updateQuantity, deleteCart, deleteItem } = useCart()
     
     async function eraseCart() {
