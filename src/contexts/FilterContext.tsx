@@ -1,8 +1,8 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useState } from 'react';
 
 type FilterType = string[];
 
-type FilterContextType = {
+export type FilterContextType = {
   filters: FilterType;
   addFilter: (selectedCategory: string) => void;
 };

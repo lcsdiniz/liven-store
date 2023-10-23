@@ -30,7 +30,7 @@ const product2: Product = {
   },
 };
 
-describe('CartProvider', () => {
+describe('CartContext', () => {
   let hook: RenderHookResult<CartContextType, unknown>
 
   beforeEach(async () => {
