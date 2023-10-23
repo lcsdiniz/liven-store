@@ -68,7 +68,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 		const cart = await AsyncStorage.getItem('@liven-cart')
 
 		if(cart) {
-			const parsedCart: Cart = JSON.parse(cart)
+		const parsedCart: Cart = JSON.parse(cart)
 			const filteredCart = parsedCart.filter(product => product.id !== productId)
 
 			await AsyncStorage.setItem('@liven-cart', JSON.stringify(filteredCart))

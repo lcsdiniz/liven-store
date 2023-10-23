@@ -9,11 +9,10 @@ export const InputContainer = styled.View`
   flex-direction: row;
   border-width: 1px;
   border-color: #C7C7CD;
-  border-radius: ${props => props.theme.borderRadius};
   align-items: center;
   padding: 0 ${props => props.theme.padding.xs} 0 ${props => props.theme.padding.sm};
   gap: 8px;
-  background-color: ${props => props.theme.colors.white}
+  background-color: ${props => props.theme.colors.white};
 `
 
 export const CustomInput = styled.TextInput`
