@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import { View, FlatList } from "react-native";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
@@ -7,7 +7,8 @@ import { getProducts } from "../../services/products";
 import { Product } from "../../types/product";
 import { Header, Message, NoProductsContainer } from "./styles";
 import RootStackParamList from "../../types/rootStackParamList";
-import { SearchInput, CartButton, ProductCard, Loading } from "../../components";
+import { SearchInput, CartButton, ProductCard, Loading, FilterButton } from "../../components";
+import { useFilter } from "../../hooks/useFilter";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -15,6 +16,8 @@ export function Home({ navigation }: Props) {
     const [productsList, setProductsList] = useState<Product[]>([])
     const [search, setSearch] = useState("")
     const [loading, setLoading] = useState(false)
+    
+    const { filters } = useFilter();
     
     async function fetchProducts() {
         setLoading(true)
@@ -31,7 +34,11 @@ export function Home({ navigation }: Props) {
         navigation.navigate('Cart')
     }
 
-    function filterProducts(products: Product[]) {
+    function openDrawer() {
+        navigation.openDrawer()
+    }
+
+    function searchFilter(products: Product[]) {
 		if(search !== '') {
 			return products.filter(product => 
 				product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
@@ -41,13 +48,26 @@ export function Home({ navigation }: Props) {
 		}
 	}
 
+    function categoryFilter(products: Product[]) {
+		if(filters.length === 0) {
+			return products
+		} else {
+            return products.filter(product => 
+				filters.includes(product.category)
+			)
+		}
+	}
+
     return (
         <View style={{ flex: 1 }}>
             <Header>
                 <SearchInput value={search} onChangeText={setSearch} editable={!loading} />
 
+                <FilterButton openDrawer={openDrawer} />
+
                 <CartButton navigate={navigateToCart}/>
             </Header>
+
             {loading
                 ? (
                     <Loading />
@@ -59,7 +79,7 @@ export function Home({ navigation }: Props) {
                         </NoProductsContainer>
                     ) : (
                         <FlatList
-                            data={filterProducts(productsList)}
+                            data={categoryFilter(searchFilter(productsList))}
                             numColumns={2}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item }) => (

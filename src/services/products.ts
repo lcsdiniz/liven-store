@@ -12,3 +12,9 @@ export async function getProductById(id: number): Promise<Product> {
 
 	return response.data
 }
+
+export async function getCategories(): Promise<string[]> {
+	const response = await api.get('products/categories')
+
+	return response.data
+}
