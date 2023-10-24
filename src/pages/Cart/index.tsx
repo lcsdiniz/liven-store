@@ -68,7 +68,6 @@ export function Cart({ navigation }: Props) {
                                 removeCartItem={removeProductAlert}
                             />
                         </View>
-
                     ))}
 
                     <TotalContainer>
