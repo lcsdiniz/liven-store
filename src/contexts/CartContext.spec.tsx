@@ -2,7 +2,7 @@ import { renderHook, act, RenderHookResult } from '@testing-library/react-native
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CartContextType, CartProvider } from './CartContext';
 import { useCart } from '../hooks/useCart';
-import { ProductMock1, ProductMock2 } from '../__tests__/mocks/products';
+import { ProductMock1, ProductMock2 } from '../../__tests__/mocks/products';
 
 describe('CartContext', () => {
   let hook: RenderHookResult<CartContextType, unknown>

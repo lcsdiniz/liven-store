@@ -75,7 +75,11 @@ export function Cart({ navigation }: Props) {
                         <TotalValue>{formatsCurrency(totalPrice)}</TotalValue>
                     </TotalContainer>
 
-                    <Button onPress={eraseCartAlert} title="CLEAN CART" color="#ff4268" />
+                    <Button
+                        onPress={eraseCartAlert}
+                        title="CLEAN CART"
+                        color="#ff4268"
+                    />
                 </>
             ) : (
                 <EmptyCart>

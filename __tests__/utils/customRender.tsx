@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode } from "react";
 import { RenderOptions, render } from "@testing-library/react-native";
-import theme from "../../theme/theme";
 import { ThemeProvider } from "styled-components/native";
-import { CartProvider } from "../../contexts/CartContext";
-import { FilterProvider } from "../../contexts/FilterContext";
+import theme from "../../src/theme/theme";
+import { CartProvider } from "../../src/contexts/CartContext";
+import { FilterProvider } from "../../src/contexts/FilterContext";
 
 function Providers({ children }: { children: ReactNode }) {
   return (
