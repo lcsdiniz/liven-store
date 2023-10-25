@@ -7,7 +7,7 @@ export const QuantityContainer = styled.View`
     background-color: ${props => props.theme.colors.red};
     position: absolute;
     z-index: 1;
-    border-radius: 50%;
+    border-radius: '9px';
     right: -5px;
     top: -5px;
     width: 18px;
