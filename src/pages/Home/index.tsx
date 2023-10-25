@@ -15,7 +15,6 @@ export function Home({ navigation }: Props) {
     const [productsList, setProductsList] = useState<Product[]>([])
     const [search, setSearch] = useState("")
     const [loading, setLoading] = useState(false)
-    
     const { filters } = useFilter();
     
     async function fetchProducts() {
@@ -24,10 +23,6 @@ export function Home({ navigation }: Props) {
         setProductsList(response)
         setLoading(false)
     }
-    
-    useEffect(() => {
-        fetchProducts()
-    } , [])
 
     function navigateToCart() {
         navigation.navigate('Cart')
@@ -39,9 +34,10 @@ export function Home({ navigation }: Props) {
 
     function searchFilter(products: Product[]) {
 		if(search !== '') {
-			return products.filter(product => 
+            return products.filter(product => 
 				product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
 			)
+
 		} else {
 			return products
 		}
@@ -51,11 +47,16 @@ export function Home({ navigation }: Props) {
 		if(filters.length === 0) {
 			return products
 		} else {
+
             return products.filter(product => 
 				filters.includes(product.category)
 			)
 		}
 	}
+
+    useEffect(() => {
+        fetchProducts()
+    } , [])
 
     return (
         <View style={{ flex: 1 }}>
@@ -71,7 +72,7 @@ export function Home({ navigation }: Props) {
                 ? (
                     <Loading />
                 ) : (
-                    productsList.length === 0 ? (
+                    categoryFilter(searchFilter(productsList)).length === 0 ? (
                         <NoProductsContainer>
                             <Message>No products were found</Message>
                             <FontAwesome5 name="box-open" size={72} color="black" />
