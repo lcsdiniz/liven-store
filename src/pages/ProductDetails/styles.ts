@@ -18,12 +18,14 @@ export const Container = styled.View`
 `
 
 export const PictureContainer = styled.View`
+    justify-content: center;
     align-items: center;
+    height: 35%;
     background-color: ${props => props.theme.colors.black};
 `
 
 export const Picture = styled.Image`
-    width: 80%;
+    height: 100%;
     aspect-ratio: 1;
 `
 

@@ -54,6 +54,7 @@ export function ProductDetails({ route, navigation }: Props) {
                                 source={{
                                     uri: product.image,
                                 }}
+                                resizeMode="contain"
                             />
                         </PictureContainer>
 
