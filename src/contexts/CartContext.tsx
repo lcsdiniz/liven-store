@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Product } from '../types/product';
 
@@ -24,6 +24,18 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 	const [cart, setCart] = useState<Cart>([])
+
+	useEffect(() => {
+		const getCartData = async () => {
+			const cartData = await AsyncStorage.getItem('@liven-cart');
+			if (cartData) {
+				const parsedCart: Cart = JSON.parse(cartData);
+				setCart(parsedCart);
+			}
+		};
+
+		getCartData();
+	}, []);
 
 	async function updateCart(product: Product) {
 		const cart = await AsyncStorage.getItem('@liven-cart')
