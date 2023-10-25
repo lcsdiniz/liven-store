@@ -1,3 +1,4 @@
+import { Platform } from "react-native"
 import styled from "styled-components/native"
 
 export const Container = styled.TouchableOpacity`
@@ -18,6 +19,6 @@ export const QuantityContainer = styled.View`
 
 export const QuantityText = styled.Text`
     color: ${props => props.theme.colors.white};
-    font-size: ${props => props.theme.fontSizes.small};
+    font-size: ${Platform.OS === 'android' ? '8px' : (props => props.theme.fontSizes.small) };
 `
 
