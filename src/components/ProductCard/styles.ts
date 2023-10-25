@@ -11,7 +11,6 @@ export const Container = styled.TouchableOpacity`
 export const Picture = styled.Image`
     width: 100px;
     aspect-ratio: 1;
-    flex: 1;
 `
 
 export const TextContainer = styled.View`
