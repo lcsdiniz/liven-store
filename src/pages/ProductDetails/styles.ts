@@ -20,7 +20,7 @@ export const Container = styled.View`
 export const PictureContainer = styled.View`
     justify-content: center;
     align-items: center;
-    height: 35%;
+    height: 200px;
     background-color: ${props => props.theme.colors.white};
 `
 
