@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { getProducts } from "../../services/products";
@@ -59,6 +59,10 @@ export function Home({ navigation }: Props) {
     } , [])
 
     return (
+        <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
         <View style={{ flex: 1 }}>
             <Header>
                 <SearchInput value={search} onChangeText={setSearch} editable={!loading} />
@@ -73,10 +77,12 @@ export function Home({ navigation }: Props) {
                     <Loading />
                 ) : (
                     categoryFilter(searchFilter(productsList)).length === 0 ? (
-                        <NoProductsContainer>
-                            <Message>No products were found</Message>
-                            <FontAwesome5 name="box-open" size={72} color="black" />
-                        </NoProductsContainer>
+                        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                            <NoProductsContainer>
+                                <Message>No products were found</Message>
+                                <FontAwesome5 name="box-open" size={72} color="black" />
+                            </NoProductsContainer>
+                        </TouchableWithoutFeedback>
                     ) : (
                         <FlatList
                             data={categoryFilter(searchFilter(productsList))}
@@ -97,5 +103,6 @@ export function Home({ navigation }: Props) {
                 )
             }
         </View>
+        </KeyboardAvoidingView>
     )
 }
