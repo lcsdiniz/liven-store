@@ -21,7 +21,7 @@ export const PictureContainer = styled.View`
     justify-content: center;
     align-items: center;
     height: 35%;
-    background-color: ${props => props.theme.colors.black};
+    background-color: ${props => props.theme.colors.white};
 `
 
 export const Picture = styled.Image`
