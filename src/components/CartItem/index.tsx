@@ -16,6 +16,7 @@ export default function CartItem({ id, title, quantity, image, price, changeQuan
                     source={{
                         uri: image,
                     }}
+                    resizeMode='contain'
                 />
     
                 <Info>
