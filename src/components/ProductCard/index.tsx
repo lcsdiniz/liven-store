@@ -14,6 +14,7 @@ export default function ProductCard({ id, title, image, price }: ProductCardProp
                 source={{
                     uri: image,
                 }}
+                resizeMode="contain"
             />
 
             <TextContainer>

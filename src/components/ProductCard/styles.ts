@@ -5,11 +5,13 @@ export const Container = styled.TouchableOpacity`
     align-items: center;
     box-shadow: 0px 1px 2.22px rgba(0, 0, 0, 0.22);
     background-color: ${props => props.theme.colors.white};
+    padding-top: ${props => props.theme.padding.sm};
 `
 
 export const Picture = styled.Image`
     width: 100px;
-    height: 100px;
+    aspect-ratio: 1;
+    flex: 1;
 `
 
 export const TextContainer = styled.View`
