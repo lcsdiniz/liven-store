@@ -17,7 +17,7 @@ export const Header = styled.View`
 export const BackButton = styled.TouchableOpacity`
     position: absolute;
     left: ${props => props.theme.padding.md};
-    bottom: ${props => props.theme.padding.md}
+    bottom: ${props => props.theme.padding.md};
 `
 
 export const Title = styled.Text`
