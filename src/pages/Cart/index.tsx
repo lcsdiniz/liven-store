@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { View, Button, Alert } from "react-native";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { CartItem } from "../../components";
 import { useCart } from "../../hooks/useCart";
 import { formatsCurrency } from "../../utils/format";
 import RootStackParamList from "../../types/rootStackParamList";
-import { Container, EmptyCart, Message, Total, TotalContainer, TotalValue } from "./styles";
+import { BackButton, Container, EmptyCart, Header, Message, Title, Total, TotalContainer, TotalValue } from "./styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -54,6 +54,14 @@ export function Cart({ navigation }: Props) {
 
     return (
         <Container>
+            <Header>
+                <BackButton onPress={() => navigation.goBack()}>
+                    <FontAwesome5 name="arrow-left" size={24} color="black" />
+                </BackButton>
+
+                <Title>CART</Title>
+            </Header>
+            
             {cart.length !== 0 ? (
                 <>
                     {cart.map(product => (

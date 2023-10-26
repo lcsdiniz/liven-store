@@ -1,10 +1,30 @@
 import styled from "styled-components/native"
 
 export const Container = styled.View`
-    padding-top: 9%;
     gap: 16px;
     flex: 1;
 `
+
+export const Header = styled.View`
+    gap: 12px;
+    padding: 9% 0 ${props => props.theme.padding.md};
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: ${props => props.theme.colors.white};
+`
+
+export const BackButton = styled.TouchableOpacity`
+    position: absolute;
+    left: ${props => props.theme.padding.md};
+    bottom: ${props => props.theme.padding.md}
+`
+
+export const Title = styled.Text`
+  font-size: ${props => props.theme.fontSizes.large};
+  font-weight: 600;
+  text-align: center;
+`;
 
 export const EmptyCart = styled.View`
     gap: 12px;

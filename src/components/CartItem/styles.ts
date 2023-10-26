@@ -28,6 +28,7 @@ export const Title = styled.Text`
 
 export const Price = styled.Text`
     font-size: ${props => props.theme.fontSizes.medium};
+    font-weight: 500;
 `
 
 export const QuantityContainer = styled.View`
