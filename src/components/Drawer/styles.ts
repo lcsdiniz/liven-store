@@ -2,12 +2,13 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  padding: ${props => props.theme.padding.md};
   gap: 8px;
+  padding-top: ${props => props.theme.padding.sm};
 `;
 
 export const Filter = styled.View`
   gap: 8px;
+  padding: ${props => props.theme.padding.md};
 `;
 
 export const Title = styled.Text`
@@ -36,3 +37,8 @@ export const CategoryItem = styled.TouchableOpacity`
 export const CategoryName = styled.Text`
   text-transform: capitalize;
 `;
+
+export const Divider = styled.View`
+  height: 1px;
+  background-color: gray;
+`

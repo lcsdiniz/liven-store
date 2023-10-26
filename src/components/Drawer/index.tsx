@@ -10,6 +10,7 @@ import {
   Name,
   CategoryName,
   Filter,
+  Divider,
 } from "./styles";
 import theme from "../../theme/theme";
 
@@ -32,6 +33,8 @@ export default function Drawer({ navigation }: any) {
         <Container>
             <Title>FILTERS</Title>
 
+            <Divider />
+            
             <Filter>
                 <Name>CATEGORIES</Name>
 
